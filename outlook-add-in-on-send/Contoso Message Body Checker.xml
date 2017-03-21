@@ -35,7 +35,7 @@
   </Rule>
 
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
-    <!-- Block On Send requires VersionOverridesV1_1 -->
+    <!-- On Send requires VersionOverridesV1_1 -->
     <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
       <Description resid="residAppDescription" />
       <Requirements>
@@ -47,10 +47,10 @@
         <Host xsi:type="MailHost">
           <DesktopFormFactor>
             <!-- The functionfile and function name to call on message send.  -->
-            <!-- In this particular case the function appBody will be called within the JavaScript code referenced in residUILessFunctionFileUrl. -->
+            <!-- In this particular case the function validateBody will be called within the JavaScript code referenced in residUILessFunctionFileUrl. -->
             <FunctionFile resid="residUILessFunctionFileUrl" />
             <ExtensionPoint xsi:type="Events">
-              <Event Type="MessageSend" FunctionExecution="synchronous" FunctionName="appBody" />
+              <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="validateBody" />
             </ExtensionPoint>
           </DesktopFormFactor>
         </Host>
