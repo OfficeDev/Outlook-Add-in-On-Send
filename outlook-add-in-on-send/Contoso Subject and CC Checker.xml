@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides"
+  xsi:type="MailApp">
+
+  <Id>D2490B2A-0CB8-4B4F-AD70-C520AFA6E3FC</Id>
+  <Version>1.0</Version>
+  <ProviderName>Contoso</ProviderName>
+  <DefaultLocale>en-us</DefaultLocale>
+  <DisplayName DefaultValue="Contoso Subject and CC Checker" />
+  <Description DefaultValue="Contoso Subject and CC Checker" />
+
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="Mailbox" />
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemEdit">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://localhost:3000/index.html" />
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteMailbox</Permissions>
+
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit" />
+    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Edit" />
+  </Rule>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <!-- Block On Send requires VersionOverridesV1_1 -->
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Description resid="residAppDescription" />
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.3">
+          <bt:Set Name="Mailbox" />
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <DesktopFormFactor>
+            <!-- The functionfile and function name to call on message send.  -->
+            <!-- In this particular case the function appSubjectAndCC will be called within the JavaScript code referenced in residUILessFunctionFileUrl. -->
+            <FunctionFile resid="residUILessFunctionFileUrl" />
+            <ExtensionPoint xsi:type="Events">
+              <Event Type="MessageSend" FunctionExecution="synchronous" FunctionName="appSubjectAndCC" />
+            </ExtensionPoint>
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+      <Resources>
+        <bt:Urls>
+          <!-- The JavaScript code is hosted on a secure and trusted web server. -->
+          <bt:Url id="residUILessFunctionFileUrl" DefaultValue="https://localhost:3000/index.html" ></bt:Url>
+        </bt:Urls>
+      </Resources>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>
