@@ -78,40 +78,102 @@ It's recommended that the add-in deployment is enforced by an administrator to e
 - is always present anytime a compose item is opened (for email: new, reply or forward)
 - can't be closed or disabled by the user
 
+## Installing a new add-in
+
+Outlook Web App on send functionality requires that add-ins are configured for the send event types (see sample scenario later in this document). Newly installed Outlook Web App on send add-ins will only be executed for users who are assigned an Outlook Web App mailbox policy that has *OnSendAddinsEnabled flag* set to **true**.
+
+To install a new add-in run the following Exchange Online PowerShell commands. 
+
+```
+$Data=Get-Content -Path '.\Contoso Message Body Checker.xml' -Encoding Byte –ReadCount 0 New-App -OrganizationApp -FileData $Data -DefaultStateForUser Enabled
+```
+
 ## Enable or disable on send add-in functionality 
 
-**Enable on send add-in functionality **
+This section gives examples of commands to run for various scenarios.   It also list the types of mailboxes that are currently not supported.
 
-By default the on send add-in functionality is disabled. Administrators can enable the functionality as required. For example, let's say an administrator only wants to enable an Outlook Web App on send add-in functionality in an environment for Finance users only (where Finance users are in FinanceUsers OU). To do this, an administrator would run the following commands in the Exchange Management Shell:
+### Enable on send add-in functionality 
 
-**Step 1**
+By default the on send add-in functionality is disabled. Administrators can enable the functionality as required by executing the following Exchange Online PowerShell commands. 
+
+### Mailbox type restrictions
+
+Outlook Web App on send functionality is only supported for user mailboxes. Currently the functionality is not supported for the following mailbox types:
+
+1.	Shared mailboxes
+2.	Offline mode
+3.	Modern Group mailboxes
+
+Outlook Web App won't allow sending if the Outlook Web App on send add-in feature is enabled for the above mentioned mailbox types. In cases where a user is responding in a modern group mailbox the add-ins won't be executed and the message will be allowed.
+
+
+### Example 1: Enabling on send add-ins for all users
+
+To enable on send add-ins for all users, the steps are as follow. 
+
+**Step 1: Create a new Outlook Web App mailbox policy**
+
+```
+New-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy
+```
+
+> **Note:** Administrators can use an existing policy, but it should be noted that on send add-in functionality is only supported on certain mailbox types (see **Mailbox type restrictions** section for more information). Unsupported mailboxes will be blocked from sending by default in Outlook Web App.
+
+**Step 2: Enable on send add-in functionality**
+
+```
+Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSendAddinsEnabled:$true
+```
+
+**Step 3: Assign the policy to users**
+
+```
+Get-User -Filter {RecipientTypeDetails -eq 'UserMailbox’}|Set-CASMailbox -OwaMailboxPolicy OWAOnSendAddinAllUserPolicy
+```
+
+### Example 2: Enable on send add-ins for a specific group of usersFor example 
+
+Let's say an administrator only wants to enable an Outlook Web App on send add-in functionality in an environment for Finance users (where Finance users are in Finance Department). 
+
+**Step 1: Create a new Outlook Web App mailbox policy for the group**
 
 ```
 New-OWAMailboxPolicy FinanceOWAPolicy
 ```
 
-**Step 2**
+> **Note:** Administrators can use an existing policy, but it should be noted that on send add-in functionality is only supported on certain mailbox types (see **Mailbox type restrictions** section for more information). Unsupported mailboxes will be blocked from sending by default in Outlook Web App.
+
+
+**Step 2: Enable on send add-in functionality**
 
 ```
 Get-OWAMailboxPolicy FinanceOWAPolicy | Set-OWAMailboxPolicy –OnSendAddinsEnabled:$true
 ```
 
-**Step 3**
+**Step 3: Assign the policy to users**
 
 ```
-Get-CASMailbox –OrganizationalUnit "FinanceUsers" | Set-CASMailbox –OWAMailboxPolicy "FinanceOWAPolicy"
+$targetUsers = Get-Group 'Finance'|select -ExpandProperty members
+$targetUsers | Get-User -Filter {RecipientTypeDetails -eq 'UserMailbox'}|Set-CASMailbox -OwaMailboxPolicy FinanceOWAPolicy
 ```
 
-The administrator then wait up to 60 minutes for the policy to take effect or alternatively, restart Internet Information Services (IIS). Once the policy takes effect, all finance users will have Outlook Web App on send functionality enabled.
+  >  **Note:** The administrator then waits up to 60 minutes for the policy to take effect or alternatively, restart Internet Information Services (IIS). Once the policy takes effect, all finance users will have Outlook Web App on send functionality enabled.
 
-**Disable on send add-in functionality**
+### Example 3:  Disable on send add-in functionality
 
 If an administrator wants to disable the on send functionality for a user or assign an Outlook Web App mailbox policy that does not have the flag enabled (in this case ContosoCorpOWAPolicy): 
 
 ```
 Get-CASMailbox joe@contoso.com | Set-CASMailbox –OWAMailboxPolicy "ContosoCorpOWAPolicy"
 ```
+
   > For more information about how to use the **Set-OwaMailboxPolicy** cmdlet to configure existing Outlook on the web mailbox policies, see [Set-OwaMailboxPolicy](https://technet.microsoft.com/en-us/library/dd297989(v=exchg.160).aspx)
+
+If an administrator wants to disable the on send functionality for all users that have a specific Outlook Web App mailbox policy assigned that has the feature enabled, the command is:
+
+```
+Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSendAddinsEnabled:$false
+```
 
 # On send code sample scenario
 
