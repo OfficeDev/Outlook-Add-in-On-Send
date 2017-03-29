@@ -137,7 +137,7 @@ Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSen
 Get-User -Filter {RecipientTypeDetails -eq 'UserMailbox’}|Set-CASMailbox -OwaMailboxPolicy OWAOnSendAddinAllUserPolicy
 ```
 
-### Example 2: Enable on send add-ins for a specific group of usersFor example 
+### Example 2: Enable on send add-ins for a specific group of users
 
 Let's say an administrator only wants to enable an Outlook Web App on send add-in functionality in an environment for Finance users (where the Finance users are in the Finance Department). The following are the steps.
 
