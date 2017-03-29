@@ -178,6 +178,8 @@ If an administrator wants to disable the on send functionality for all users tha
 Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSendAddinsEnabled:$false
 ```
 
+ > **Note:** For more information about how to use the Set-OwaMailboxPolicy cmdlet to configure existing Outlook on the web mailbox policies, see [Set-OwaMailboxPolicy](https://technet.microsoft.com/en-us/library/dd297989(v=exchg.160).aspx).
+
 # On send code sample scenario
 
 In this section, we'll walkthrough a simple on send sample scenario and API usage.  To aid in the illustration and discussion, we'll use the [Outlook-Add-in-On-Send](https://github.com/OfficeDev/Outlook-Add-in-On-Send) code sample.
