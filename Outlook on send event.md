@@ -84,10 +84,13 @@ Outlook Web App on send functionality requires that add-ins are configured for t
 
   > **Note:** For scenario and cmdlets examples, see **Examples 1, 2 and 3** below.
 
-To install a new add-in, run the following Exchange Online PowerShell commands. 
+To install a new add-in, run the following Exchange Online PowerShell cmdlets. 
 
 ```
-$Data=Get-Content -Path '.\Contoso Message Body Checker.xml' -Encoding Byte –ReadCount 0 New-App -OrganizationApp -FileData $Data -DefaultStateForUser Enabled
+$Data=Get-Content -Path '.\Contoso Message Body Checker.xml' -Encoding Byte –ReadCount 0 
+```
+```
+New-App -OrganizationApp -FileData $Data -DefaultStateForUser Enabled
 ```
 
 > **Note:** To learn how to use remote PowerShell to connect to Exchange Online, see [Connect to Exchange Online PowerShell](http://go.microsoft.com/fwlink/p/?LinkId=396554).
