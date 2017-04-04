@@ -15,7 +15,7 @@
 
 ## Overview
 
- >  Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator. For more information, see the [Guidelines and restrictions](#guidelines) section in this article.
+ >  Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator. For more information, see the **Guidelines and restrictions** section in this article.
 
 You can use the Outlook add-in events to handle, check or block user actions when something of interest occurs.  Events  provide ways to:
 
@@ -52,7 +52,7 @@ The following screenshot shows an information bar notifying the sender to add a 
 The following screenshot shows an information bar notifying the sender of blocked words found.
   ![The message body checker information bar](./readme-images/block-on-send-body.png)
 
-# [Guidelines and restrictions](#guidelines)
+# Guidelines and restrictions
 
 ##  Only supported on Outlook Web App in Office 365 
 Currently, the on send event is only supported on Outlook Web App in Office 365.  Support for other SKUs are coming soon.  
