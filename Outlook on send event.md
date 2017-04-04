@@ -4,6 +4,8 @@
 * [Overview](#overview)
 * [How does the on send event work?](#event)
 * [Guidelines and restrictions](#guidelines)
+* [On send mailbox type scenarios](#type-scenarios)
+* [On send code sample scenario](#code-sample)
 * [Manifest, version override and event](#manifests)
 * [Event, item, body getAsync and setAsync methods](#event-item-body)
 * [NotificationMessages object and event.completed method](#event-notification)
@@ -12,6 +14,8 @@
 * [Additional resources](#additional-resources)
 
 ## Overview
+
+ >  Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator. For more information, see the [Guidelines and restrictions](#guidelines) section in this article.
 
 You can use the Outlook add-in events to handle, check or block user actions when something of interest occurs.  Events  provide ways to:
 
@@ -48,7 +52,7 @@ The following screenshot shows an information bar notifying the sender to add a 
 The following screenshot shows an information bar notifying the sender of blocked words found.
   ![The message body checker information bar](./readme-images/block-on-send-body.png)
 
-# Guidelines and restrictions
+# [Guidelines and restrictions](#guidelines)
 
 ##  Only supported on Outlook Web App in Office 365 
 Currently, the on send event is only supported on Outlook Web App in Office 365.  Support for other SKUs are coming soon.  
@@ -182,6 +186,68 @@ Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSen
 ```
 
  > **Note:** For more information about how to use the Set-OwaMailboxPolicy cmdlet to configure existing Outlook on the web mailbox policies, see [Set-OwaMailboxPolicy](https://technet.microsoft.com/en-us/library/dd297989(v=exchg.160).aspx).
+
+# On send mailbox type scenarios
+
+The following section describes the supported and unsupported usage scenarios for on send add-ins.
+
+**Scenario 1: User mailbox with on send add-in feature enabled but no add-ins are installed**
+
+- **Results:** In this scenario the user will be able to send mail without any add-ins executing.
+
+**Scenario 2: User mailbox with on send add-in feature enabled and add-ins that supports on send are installed and enabled**
+
+- **Results:** Add-ins will be initiated during the send event, which will then either allow or block the user from sending.
+
+**Scenario 3: Mailbox delegation, where mailbox 1 has full access permissions to mailbox 2**
+
+- Mailbox 1: On send add-in feature is enabled
+- Mailbox 2: On send add-in feature is enabled
+- Mailbox 1 opens Mailbox 2 in a new full Outlook Web App session (open another mailbox).
+- **Results:** Mailbox 1 will not be able to send an email from Mailbox 2.
+
+Scenario 3 is currently **not supported**. The workaround is to use scenario 5 for this use case.
+
+**Scenario 4: Mailbox delegation, where mailbox 1 has full access permissions to mailbox 2**
+
+- Mailbox 1: On send add-in feature is disabled
+- Mailbox 2: On send add-in feature is enabled
+- Mailbox 1 opens Mailbox 2 in a new full Outlook Web App session (open another mailbox).
+- **Results:**  Mailbox 1 will not be able to send an email from Mailbox 2.
+
+Scenario 4 is currently **not supported**. The workaround is to use scenario 5 for this use case.
+
+**Scenario 5: Mailbox delegation, where mailbox 1 has full access permissions to mailbox 2**
+
+- Mailbox 1: On send add-in feature is enabled
+- Mailbox 2: On send add-in feature is enabled
+- Mailbox 1 opens Mailbox 2 in the same Outlook Web App session (open shared folders).
+- **Results:** The on send add-ins assigned to Mailbox 1 will be executed during send.
+
+**Scenario 6: Mailbox delegation, where mailbox 1 has full access permissions to mailbox 2**
+
+- Mailbox 1: On send add-in feature is enabled
+- Mailbox 2: On send add-in feature is disabled
+- Mailbox 1 opens Mailbox 2 in a new full Outlook Web App session (open another mailbox).
+- **Results:** No on send add-ins will be executed. Mail will be sent as per normal.
+
+**Scenario 7: Group 1 is a modern group mailbox and user mailbox 1 is a member of Group 1**
+
+-	Mailbox 1: On send add-in feature is enabled and some on send add-ins are enabled.
+-	Mailbox 1 composes a new message to Group 1.
+- **Results:** The on send add-ins will be executed during send.
+
+**Scenario 8: Group 1 is a modern group mailbox and user mailbox 1 is a member of Group 1**
+
+-	Mailbox 1: On send add-in feature is enabled and some on send add-ins are enabled.
+-	Mailbox 1 composes a new message to Group 1 within Group 1’s group window in Outlook Web App.
+- **Results:** The on send add-ins will not be executed during send.
+
+Scenario 8 is currently **not supported**. The workaround is to use scenario 7 for this use case.
+
+**Scenario 9: User mailbox with on send add-in feature enabled, add-ins that support on send are installed and enabled and offline mode is enabled.**
+
+- **Results:** The on send add-ins will be executed during send if the user is online. If the user is offline, the on send add-ins will not be executed during send and the email will not be sent.
 
 # On send code sample scenario
 
