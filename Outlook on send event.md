@@ -15,7 +15,7 @@
 
 ## Overview
 
- >  Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator. For more information, see the **Guidelines and restrictions** section in this article.
+   >  **Note:** Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator. For more information, see the **Guidelines and restrictions** section in this article.
 
 You can use the Outlook add-in events to handle, check or block user actions when something of interest occurs.  Events  provide ways to:
 
