@@ -138,7 +138,7 @@ Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSen
 **Step 3: Assign the policy to users**
 
 ```
-Get-User -Filter {RecipientTypeDetails -eq 'UserMailbox’}|Set-CASMailbox -OwaMailboxPolicy OWAOnSendAddinAllUserPolicy
+Get-User -Filter {RecipientTypeDetails -eq 'UserMailbox'}|Set-CASMailbox -OwaMailboxPolicy OWAOnSendAddinAllUserPolicy
 ```
 
 ### Example 2: Enable on send add-ins for a specific group of users
