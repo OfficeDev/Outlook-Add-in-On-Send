@@ -1,8 +1,8 @@
-# Understand the on send event for Outlook
+# Understand the on send feature for Outlook
 
 ## Table of Contents
 * [Overview](#overview)
-* [How does the on send event work?](#event)
+* [How does the on send feature work?](#event)
 * [Guidelines and restrictions](#guidelines)
 * [On send mailbox type scenarios](#type-scenarios)
 * [On send code sample scenario](#code-sample)
@@ -26,19 +26,24 @@ You can use the Outlook add-in events to handle, check or block user actions whe
 - verify user data input
 - validate content in a message and so on.    
 
-This article focuses on using the **ItemSend** event type (also generally referred to as **on send** event or **on send** feature) in Outlook add-ins.
+This article focuses on using the **ItemSend** event type in Outlook add-ins.
 
-# On send event scenario
+>   **Note:** In this article and in general, the **ItemSend** event type is also referred to as:
+   - **on send** event 
+   - **on send** feature
+   
 
-## How does the on send event work?
-The Outlook add-in on send event API provides a way to block email users from certain actions and allows an add-in to set certain items on send. For example, it can be used to:
+# On send scenario
+
+## How does the on send feature work?
+The Outlook add-in on send feature provides a way to block email users from certain actions and allows an add-in to set certain items on send. For example, it can be used to:
 
 - prevent a user from sending sensitive information or leaving the subject line blank.  
 - set and add specific recipient in the CC line and so on.
 
-Using this API, you can build an Outlook add-in that hook on to events such as the **ItemSend** synchronous event.  This event detects that the user is pressing the **Send** button and is able to block the email from being sent if message validation fails.
+Using the on send feature, you can build an Outlook add-in that hook on to events such as the **ItemSend** synchronous event.  This event detects that the user is pressing the **Send** button and is able to block the email from being sent if message validation fails.
 
-Validation is on the client side, in the browser. Validation is done at the penultimate moment of dissemination which is the send event. As an example, at message send event, an Outlook add-in that uses the on send API will be able to:
+Validation is on the client side, in the browser. Validation is done at the penultimate moment of dissemination which is the send event. As an example, at message send event, an Outlook add-in that uses the on send feature will be able to:
 
 - read and validate the email message contents
 - check that there is a subject line
