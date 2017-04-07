@@ -15,7 +15,7 @@
 
 ## Overview
 
-   >  **Note:** Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator. For more information, see the **Guidelines and restrictions** section in this article.
+   >  **Note:** Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator.  Currently, it's only supported on Outlook Web App in Office 365.  Support for other SKUs are coming soon.  For more information, see the **Guidelines and restrictions** section in this article.
 
 You can use the Outlook add-in events to handle, check or block user actions when something of interest occurs.  Events  provide ways to:
 
@@ -26,7 +26,7 @@ You can use the Outlook add-in events to handle, check or block user actions whe
 - verify user data input
 - validate content in a message and so on.    
 
-This article focuses on using the on send event in Outlook add-ins.
+This article focuses on using the **ItemSend** event type (also generally referred to as **on send** event or **on send** feature) in Outlook add-ins.
 
 # On send event scenario
 
