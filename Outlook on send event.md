@@ -1,47 +1,24 @@
-# Understand the on send feature for Outlook
+# On send feature for Outlook add-ins
 
-## Table of Contents
-* [Overview](#overview)
-* [How does the on send feature work?](#event)
-* [Guidelines and restrictions](#guidelines)
-* [On send mailbox type scenarios](#type-scenarios)
-* [On send code sample scenario](#code-sample)
-* [Manifest, version override and event](#manifests)
-* [Event, item, body getAsync and setAsync methods](#event-item-body)
-* [NotificationMessages object and event.completed method](#event-notification)
-* [replaceAsync, removeAsync and getAllAsync methods](#other-methods)
-* [Subject and CC checker](#other-example)
-* [Additional resources](#additional-resources)
+You can use the Outlook add-in events to handle, check, or block user actions when something of interest occurs. Events provide ways to:
 
-## Overview
+- Raise an event and in response, handle the raised event appropriately
+- Control user actions
+- Handle changes
+- Signal user actions such as button clicks
+- Verify user data input
+- Validate content in a message    
 
-   >  **Note:** Add-ins that utilize the **ItemSend** event type can't be listed in the Office Store and need to be installed by an administrator.  Currently, it's only supported on Outlook Web App in Office 365.  Support for other SKUs are coming soon.  For more information, see the **Guidelines and restrictions** section in this article.
+The on send feature for Outlook add-ins currently supports the **ItemSend** event type. The on send feature provides a way to block email users from certain actions and allows an add-in to set certain items on send. For example, you can use the on send feature to:
 
-You can use the Outlook add-in events to handle, check or block user actions when something of interest occurs.  Events  provide ways to:
+- Prevent a user from sending sensitive information or leaving the subject line blank.  
+- Add a specific recipient to the CC line.
 
-- raise an event and in response, handle the raised event appropriately
-- control user actions
-- handle changes
-- signal user actions such as button clicks
-- verify user data input
-- validate content in a message and so on.    
-
-This article focuses on using the **ItemSend** event type in Outlook add-ins.
-
->   **Note:** In this article and in general, the **ItemSend** event type is also referred to as:
-   - **on send** event 
-   - **on send** feature
-   
-
-# On send scenario
+>  **Note:** You can't publish add-ins that use the on send feature to the Office Store; they must be installed by an administrator. The on send feature is currently supported for Outlook Web App in Office 365 only. For more information, see **Guidelines and restrictions** later in this article.  
 
 ## How does the on send feature work?
-The Outlook add-in on send feature provides a way to block email users from certain actions and allows an add-in to set certain items on send. For example, it can be used to:
 
-- prevent a user from sending sensitive information or leaving the subject line blank.  
-- set and add specific recipient in the CC line and so on.
-
-Using the on send feature, you can build an Outlook add-in that hook on to events such as the **ItemSend** synchronous event.  This event detects that the user is pressing the **Send** button and is able to block the email from being sent if message validation fails.
+You can use the on send feature to build an Outlook add-in that hooks on to events such as the **ItemSend** synchronous event.  This event detects that the user is pressing the **Send** button and is able to block the email from being sent if message validation fails.
 
 Validation is on the client side, in the browser. Validation is done at the penultimate moment of dissemination which is the send event. As an example, at message send event, an Outlook add-in that uses the on send feature will be able to:
 
@@ -457,7 +434,7 @@ In addition to the message body checker, the [Outlook-Add-in-On-Send](https://gi
     }
 ```
 
-To learn more about how to add a recipient to the CC line, check that there is a subject in the email on send, and the APIs you can leverage, see  [Outlook-Add-in-On-Send](https://github.com/OfficeDev/Outlook-Add-in-On-Send).  The code is well commented.   
+To learn more about how to add a recipient to the CC line and verify that the email message includes a subject line on send, and to see the APIs you can use, see the [Outlook-Add-in-On-Send sample](https://github.com/OfficeDev/Outlook-Add-in-On-Send). The code is well commented.   
 
 
 ## Additional resources
