@@ -2,10 +2,12 @@
 
 <!-- Let's see if we can find a way to mention the on send feature in the introductory sentence, then explain the relationship between on send and events; otherwise readers might not make the connection. -->
 
-The on send feature for Outlook add-ins provides a way to block email users from certain actions and allows an add-in to set certain items on send. For example, you can use the on send feature to:
+The on send feature for Outlook add-ins provides a way to block email users from certain actions, and allows an add-in to set certain items on send. For example, you can use the on send feature to:
 
 - Prevent a user from sending sensitive information or leaving the subject line blank.  
 - Add a specific recipient to the CC line.
+
+>  **Note:** <!-- We make this point later so removing from here. Better to have one concept covered in a Note. You can't publish add-ins that use the on send feature to the Office Store; they must be installed by an administrator.-->The on send feature is currently supported for Outlook Web App in Office 365 only. <!-- Removing because we don't provide any more information in that section. For more information, see **Guidelines and restrictions** later in this article. -->
 
 The on send feature is triggered by events. Currently, the feature supports the **ItemSend** event type. Events in Outlook add-ins enable you to handle, check, or block user actions when something of interest occurs. For example, events provide ways to:
 
@@ -17,25 +19,21 @@ The on send feature is triggered by events. Currently, the feature supports the 
 - Validate content in a message    
 
 
->  **Note:** <!-- We make this point later so removing from here. Better to have one concept covered in a Note. You can't publish add-ins that use the on send feature to the Office Store; they must be installed by an administrator.-->The on send feature is currently supported for Outlook Web App in Office 365 only. <!-- Removing because we don't provide any more information in that section. For more information, see **Guidelines and restrictions** later in this article. -->
-
 <!-- Verify that we should be using "Outlook Web App" throughout and not "Outlook on the web"? What is the timeline for rolling out that name change? -->
 
 <!-- Let's add something like this (below). Also, "limitations" seems like a friendlier word than "retrictions"; "restrictions" implies that the user is restricted, not the feature.-->
 
-For information about additional limitations related to the on send feature, see [Limitations]() later in this article.
+For information about limitations related to the on send feature, see [Limitations](#limitations) later in this article.
 
 ## How does the on send feature work?
 
-You can use the on send feature to build an Outlook add-in that integrates the **ItemSend** synchronous event. This event detects that the user is pressing the **Send** button and blocks the email from being sent if the message validation fails.
-
-Validation is done on the client side<!-- LG: This only applies to OWA, right? Do we need to qualify - i.e. might be different when additional platforms are supported?, in the browser --> on trigger of the send event. For example, when a user triggers a message send event, an Outlook add-in that uses the on send feature can:
+You can use the on send feature to build an Outlook add-in that integrates the **ItemSend** synchronous event. This event detects that the user is pressing the **Send** button and blocks the email from sending if the message validation fails. For example, when a user triggers a message send event, an Outlook add-in that uses the on send feature can:
 
 - Read and validate the email message contents
 - Verify that the message includes a subject line
 - Set a predetermined recipient 
 
-If validation fails, the sending of the email is blocked, and an error message is displayed that prompts the user to take action.  
+Validation is done on the client side<!-- LG: This only applies to OWA, right? Do we need to qualify - i.e. might be different when additional platforms are supported?, in the browser --> on trigger of the send event. If validation fails, the sending of the email is blocked, and an error message with an information bar is displayed that prompts the user to take action.  
 
 The following screenshot shows an information bar that notifies the sender to add a subject.
 
@@ -64,13 +62,13 @@ The on send feature currently has the following limitations:
 - Only one **ItemSend** event is supported per add-in. If you have two or more **ItemSend** events in a manifest, the manifest will fail validation. 
 - Multiple roundtrips to the web server that hosts the add-in can affect the performance of the add-in. Consider the effects on performance when you create add-ins that require multiple email message-based operations.
 
-### Mailbox types
+### Mailbox type limitations
 
 On send functionality is only supported for user mailboxes in Outlook Web App. The functionality is not currently supported for the following mailbox types:
 
-1.	Shared mailboxes
-2.	Offline mode
-3.	Group mailboxes 
+- Shared mailboxes
+- Offline mode
+- Group mailboxes 
 
 <!-- Verify that the name of the feature is "Modern Group"? -->
 
@@ -80,14 +78,14 @@ Outlook Web App won't allow sending if the on send feature is enabled for these 
 
 If more than one on send add-in is installed, the add-ins will run in the order in which they were installed. If the first add-in allows sending, the second add-in can change something that would make the first one block sending. If all installed add-ins allow sending, the first add-ins to be installed do not run again. 
 
-For example, Add-in1 and Add-in2 both use the on send feature. Add-in1 is installed first, and Add-in2 installed second. Add-in1 verifies that the word Fabrikam appears in the message as a condition for the add-in to allow send.  However, Add-in2 removes any occurrences of the word Fabrikam. The message will send with all instances of Fabrikam removed.
+For example, Add-in1 and Add-in2 both use the on send feature. Add-in1 is installed first, and Add-in2 is installed second. Add-in1 verifies that the word Fabrikam appears in the message as a condition for the add-in to allow send.  However, Add-in2 removes any occurrences of the word Fabrikam. The message will send with all instances of Fabrikam removed.
 
 
 ## Deploying Outlook add-ins that use on send 
 
 We recommend that administrators deploy Outlook add-ins that use the on send feature. Administrators have to ensure that the on send add-in:
 
-- Is always present any time a compose item is opened (for email: new, reply, or forward).
+- Is always present any time a compose item is opened (for email, new, reply, or forward).
 - Can't be closed or disabled by the user.
 
 ## Installing Outlook add-ins that use on send
@@ -170,7 +168,7 @@ Get-CASMailbox joe@contoso.com | Set-CASMailbox –OWAMailboxPolicy "ContosoCorp
 
   > **Note:** For more information about how to use the **Set-OwaMailboxPolicy** cmdlet to configure existing Outlook on the web mailbox policies, see [Set-OwaMailboxPolicy](https://technet.microsoft.com/en-us/library/dd297989(v=exchg.160).aspx).
 
-To disable the on send feature for all users that have a specific Outlook Web App mailbox policy assigned, run the following cmdlets to run is as follows. 
+To disable the on send feature for all users that have a specific Outlook Web App mailbox policy assigned, run the following cmdlets. 
 
 ```
 Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSendAddinsEnabled:$false
@@ -201,13 +199,13 @@ The following delegation scenarios are not currently supported:
 - If the on send feature is enabled for mailbox 1 and mailbox 2, and mailbox 1 opens mailbox 2 in a new Outlook Web App session, mailbox 1 cannot send an email from mailbox 2.
 - If the on send feature is disabled for mailbox 1 and enabled for mailbox 2, and mailbox 1 opens mailbox 2 in a new Outlook Web App session, mailbox 1 cannot send an email from mailbox 2.
 
-**Group 1 is a modern group mailbox and mailbox 1 user is a member of Group 1**
+**Group 1 is a modern group mailbox and mailbox 1 user is a member of group 1**
 
-If the on send add-in feature and some on send add-ins are enabled on mailbox 1, and mailbox 1 composes a new message to Group 1, the on send add-ins will run during send.
+If the on send add-in feature and some on send add-ins are enabled on mailbox 1, and mailbox 1 composes a new message to group 1, the on send add-ins will run during send.
 
 The following scenario is not currently supported:
 
-- If the on send add-in feature and some on send add-ins are enabled on mailbox 1, and mailbox 1 composes a new message to Group 1 within the group window in Outlook Web App, the on send feature will not run during send.
+- If the on send add-in feature and some on send add-ins are enabled on mailbox 1, and mailbox 1 composes a new message to group 1 within the group window in Outlook Web App, the on send feature will not run during send.
 
 
 **User mailbox with on send add-in feature enabled, add-ins that support on send are installed and enabled, and offline mode is enabled**
@@ -222,8 +220,8 @@ The following code examples show you how to create a simple on send add-in. To d
 
 The [Outlook-Add-in-On-Send](https://github.com/OfficeDev/Outlook-Add-in-On-Send) code sample includes two manifests:
 
-- `Contoso Message Body Checker.xml` -- shows how to check the body of a message for restricted words or sensitive information on send.  
-- `Contoso Subject and CC Checker.xml` -- shows how to add a recipient to the CC line and verify that the message includes a subject line on send.  
+- `Contoso Message Body Checker.xml` -- Shows how to check the body of a message for restricted words or sensitive information on send.  
+- `Contoso Subject and CC Checker.xml` -- Shows how to add a recipient to the CC line and verify that the message includes a subject line on send.  
 
 In the `Contoso Message Body Checker.xml` manifest file, you include the function file and function name that should be called on the **ItemSend** event. The operation runs synchronously.
 
@@ -329,8 +327,8 @@ The `checkBodyOnlyOnSendCallBack` function uses a regular expression to determin
 The following are the parameters for the **addAsync** method:
 
 - *NoSend* - A string that is a developer-specified key to reference a notification message. You can use it to modify this message later. The key can’t be longer than 32 characters. 
-- *type* - One the properties of the  JSON object parameter. Represents the type of a message; the types correspond to the values of the [Office.MailboxEnums.ItemNotificationMessageType](https://dev.outlook.com/reference/add-ins/Office.MailboxEnums.html#.ItemNotificationMessageType) enumeration. Possible values are progress indicator, information message, or error message. In this example, 'type' is an error message.  
-- *message* - One the properties of the JSON object parameter. In this example, 'message' is the text of the notification message. 
+- *type* - One the properties of the  JSON object parameter. Represents the type of a message; the types correspond to the values of the [Office.MailboxEnums.ItemNotificationMessageType](https://dev.outlook.com/reference/add-ins/Office.MailboxEnums.html#.ItemNotificationMessageType) enumeration. Possible values are progress indicator, information message, or error message. In this example, *type* is an error message.  
+- *message* - One the properties of the JSON object parameter. In this example, *message* is the text of the notification message. 
 
 To signal that the add-in has finished processing the **ItemSend** event triggered by the send operation, call the **event.completed({allowEvent:Boolean}** method. The **allowEvent** property is a Boolean. If set to **true**, send is allowed. If set to **false**, the email message is blocked from sending.
 
