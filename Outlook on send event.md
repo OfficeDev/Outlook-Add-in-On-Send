@@ -1,39 +1,31 @@
 # On send feature for Outlook add-ins
 
-<!-- Let's see if we can find a way to mention the on send feature in the introductory sentence, then explain the relationship between on send and events; otherwise readers might not make the connection. -->
-
-The on send feature for Outlook add-ins provides a way to block email users from certain actions, and allows an add-in to set certain items on send. For example, you can use the on send feature to:
+The on send feature for Outlook add-ins provides a way to check, handle, or block email users from certain actions, and allows an add-in to set certain items on send. For example, you can use the on send feature to:
 
 - Prevent a user from sending sensitive information or leaving the subject line blank.  
 - Add a specific recipient to the CC line.
 
->  **Note:** <!-- We make this point later so removing from here. Better to have one concept covered in a Note. You can't publish add-ins that use the on send feature to the Office Store; they must be installed by an administrator.-->The on send feature is currently supported for Outlook Web App in Office 365 only. <!-- Removing because we don't provide any more information in that section. For more information, see **Guidelines and restrictions** later in this article. -->
+>  **Note:** The on send feature is currently supported for Outlook Web App in Office 365 only. 
 
 The on send feature is triggered by events. Currently, the feature supports the **ItemSend** event type. Events in Outlook add-ins enable you to handle, check, or block user actions when something of interest occurs. For example, events provide ways to:
 
-<!-- This is self-referencing; lets either rephrase or remove. - Raise an event and in response, handle the raised event appropriately --> 
 - Control user actions
 - Handle changes
 - Signal user actions such as button clicks
 - Verify user data input
 - Validate content in a message    
 
-
-<!-- Verify that we should be using "Outlook Web App" throughout and not "Outlook on the web"? What is the timeline for rolling out that name change? -->
-
-<!-- Let's add something like this (below). Also, "limitations" seems like a friendlier word than "retrictions"; "restrictions" implies that the user is restricted, not the feature.-->
-
 For information about limitations related to the on send feature, see [Limitations](#limitations) later in this article.
 
 ## How does the on send feature work?
 
-You can use the on send feature to build an Outlook add-in that integrates the **ItemSend** synchronous event. This event detects that the user is pressing the **Send** button and blocks the email from sending if the message validation fails. For example, when a user triggers a message send event, an Outlook add-in that uses the on send feature can:
+You can use the on send feature to build an Outlook add-in that integrates the **ItemSend** synchronous event. This event detects that the user is pressing the **Send** button and can be used to block the email from sending if the message validation fails. For example, when a user triggers a message send event, an Outlook add-in that uses the on send feature can:
 
 - Read and validate the email message contents
 - Verify that the message includes a subject line
 - Set a predetermined recipient 
 
-Validation is done on the client side<!-- LG: This only applies to OWA, right? Do we need to qualify - i.e. might be different when additional platforms are supported?, in the browser --> on trigger of the send event. If validation fails, the sending of the email is blocked, and an error message with an information bar is displayed that prompts the user to take action.  
+Validation is done on the client side in Outlook Web App, on trigger of the send event. If validation fails, the sending of the email is blocked, and an error message with an information bar is displayed that prompts the user to take action.  
 
 The following screenshot shows an information bar that notifies the sender to add a subject.
 
@@ -42,17 +34,6 @@ The following screenshot shows an information bar that notifies the sender to ad
 The following screenshot shows an information bar that notifies the sender that blocked words were found.
 
 ![Screenshot showing an error message telling the user that blocked words were found](./readme-images/block-on-send-body.png)
-
-<!-- Including a big long section about guidelines and restrictions near the beginning of the article might discourage folks from using the feature. I suggest that we include the code examples first, as that is what devs generally looking for, and have a section about limitations closer to the end of the article. 
-                                                                                                                                                                                        
-## Guidelines and restrictions
--->
-
-<!-- This doesn't provide any more information; it just repeats what was stated earlier. I suggest we remove this as it is duplication. Esp because we're trying to make the article a little shorter. ;)
-
-##  Only supported on Outlook Web App in Office 365 
-Currently, the on send event is only supported on Outlook Web App in Office 365.  Support for other SKUs are coming soon.  
--->
 
 ## Limitations
 
@@ -69,8 +50,6 @@ On send functionality is only supported for user mailboxes in Outlook Web App. T
 - Shared mailboxes
 - Offline mode
 - Group mailboxes 
-
-<!-- Verify that the name of the feature is "Modern Group"? -->
 
 Outlook Web App won't allow sending if the on send feature is enabled for these mailbox types. If a user responds to an email in a group mailbox, the on send add-in won't run and the message will be sent.
 
@@ -89,8 +68,6 @@ We recommend that administrators deploy Outlook add-ins that use the on send fea
 - Can't be closed or disabled by the user.
 
 ## Installing Outlook add-ins that use on send
-
-<!-- Ideally, we would publish this content on SOC, and have a link here. This is a lot of admin content to include in a dev article. Do we know if our counterparts in MAX are currently or planning to add admin documentation? -->
 
 The on send feature in Outlook Web App requires that add-ins are configured for the send event types. Add-ins for Outlook Web App that use the on send feature will run for users who are assigned an Outlook Web App mailbox policy that has the *OnSendAddinsEnabled* flag set to **true**.
 
