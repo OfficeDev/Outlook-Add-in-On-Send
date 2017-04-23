@@ -156,7 +156,7 @@ Get-OWAMailboxPolicy OWAOnSendAddinAllUserPolicy | Set-OWAMailboxPolicy –OnSen
 
 The following are the supported and unsupported scenarios for add-ins that use the on send feature.
 
-**Scenario 1: User mailbox has the on send add-in feature enabled but no add-ins are installed **
+**Scenario 1: User mailbox has the on send add-in feature enabled but no add-ins are installed**
 
 In this scenario the user will be able to send mail without any add-ins executing.
 
@@ -249,7 +249,7 @@ For the `Contoso Subject and CC Checker.xml` manifest file, the function file an
         <Host xsi:type="MailHost">
           <DesktopFormFactor>
             <!-- The functionfile and function name to call on message send.  -->
-            <!-- In this particular case the function validateSubjectAndCC will be called within the JavaScript code referenced in residUILessFunctionFileUrl. -->
+            <!-- In this case the function validateSubjectAndCC will be called within the JavaScript code referenced in residUILessFunctionFileUrl. -->
             <FunctionFile resid="residUILessFunctionFileUrl" />
             <ExtensionPoint xsi:type="Events">
               <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="validateSubjectAndCC" />
@@ -261,7 +261,7 @@ For the `Contoso Subject and CC Checker.xml` manifest file, the function file an
 
 
 
-The on send API requires **VersionOverrides v1_1**. The following code shows you how to add the VersionOverrides node in your manifest.
+The on send API requires **VersionOverrides v1_1**. The following shows you how to add the VersionOverrides node in your manifest.
 
 ```
  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -329,8 +329,8 @@ The `checkBodyOnlyOnSendCallBack` function uses a regular expression to determin
 The following are the parameters for the **addAsync** method:
 
 - *NoSend* - A string that is a developer-specified key to reference a notification message. You can use it to modify this message later. The key can’t be longer than 32 characters. 
-- *type* - One the properties of the  JSON object parameter. Represents the type of a message; the types correspond to the values of the [Office.MailboxEnums.ItemNotificationMessageType](https://dev.outlook.com/reference/add-ins/Office.MailboxEnums.html#.ItemNotificationMessageType) enumeration. Possible values are progress indicator, information message, or error message. In this example, *type* is an error message.  
-- *message* - One the properties of the JSON object parameter. In this example, *message* is the text of the notification message. 
+- *type* - One of the properties of the  JSON object parameter. Represents the type of a message; the types correspond to the values of the [Office.MailboxEnums.ItemNotificationMessageType](https://dev.outlook.com/reference/add-ins/Office.MailboxEnums.html#.ItemNotificationMessageType) enumeration. Possible values are progress indicator, information message, or error message. In this example, *type* is an error message.  
+- *message* - One of the properties of the JSON object parameter. In this example, *message* is the text of the notification message. 
 
 To signal that the add-in has finished processing the **ItemSend** event triggered by the send operation, call the **event.completed({allowEvent:Boolean}** method. The **allowEvent** property is a Boolean. If set to **true**, send is allowed. If set to **false**, the email message is blocked from sending.
 
@@ -343,7 +343,7 @@ In addition to the **addAsync** method, the **NotificationMessages** object also
 
 ### Subject and CC checker
 
-The following code example shows you how to add a recipient to the CC line and verify that the message includes a subject on send. This example uses the block on send event to allow or disallow an email from sending.  
+The following code example shows you how to add a recipient to the CC line and verify that the message includes a subject on send. This example uses the on send feature to allow or disallow an email from sending.  
 
 ```js
     // Invoke by Contoso Subject and CC Checker add-in before send is allowed.
