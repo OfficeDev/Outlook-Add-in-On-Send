@@ -2,6 +2,8 @@
 
 Learn how to check for restricted words in an Outlook email message body, add a recipient to the CC line and check that there is a subject in the email on send.
 
+>**Note:** For more information about the on send feature, see [On send feature for Outlook add-ins](https://dev.office.com/docs/add-ins/outlook/outlook-on-send-addins).
+
 ## Table of Contents
 * [Change history](#change-history)
 * [Prerequisites](#prerequisites)
