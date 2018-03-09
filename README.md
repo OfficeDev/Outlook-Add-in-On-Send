@@ -28,7 +28,7 @@ April 2017
 
 1. Download or fork the repository.
 2. Open app.js. In  `addCCOnSend` function, change `Contoso@contoso.onmicrosoft.com` to your own email address.
-2. Deploy the add-in files to a directory on your web server. The files to upload are app.js and app.html.
+2. Deploy the add-in files to a directory on your web server. The files to upload are app.js and index.html.
 3. Open `Contoso Message Body Checker.xml` and `Contoso Subject and CC Checker.xml` manifest files in a text editor. Replace all instances of `https://localhost:3000` with the HTTPS URL of the directory where you uploaded the files in the previous step. Save your changes.
 
    >  For more information about:
