@@ -2,7 +2,11 @@
 
 Learn how to check for restricted words in an Outlook email message body, add a recipient to the CC line and check that there is a subject in the email on send.
 
->**Note:** For more information about the on send feature, see [On send feature for Outlook add-ins](https://dev.office.com/docs/add-ins/outlook/outlook-on-send-addins).
+>**Note:** 
+
+* The on send feature is currently supported for Outlook on the web in Office 365 only. 
+* To learn about the on send feature, see [On send feature for Outlook add-ins](https://dev.office.com/docs/add-ins/outlook/outlook-on-send-addins).  
+* For a code walkthrough, see [Code examples](https://docs.microsoft.com/en-us/outlook/add-ins/outlook-on-send-addins#code-examples).
 
 ## Table of Contents
 * [Change history](#change-history)
@@ -21,8 +25,9 @@ April 2017
 
 ## Prerequisites
 
-* A web server to host the sample files. The server must be able to accept SSL-protected requests (https) and have a valid SSL certificate.
+* A trusted web server to host the sample files. The server must be able to accept SSL-protected requests (https) and have a valid SSL certificate.
 * An Office 365 email account.
+* Enable the on send feature - by default, the on send functionality is disabled. Add-ins for Outlook on the web that use the on send feature will run for users who are assigned an Outlook on the web mailbox policy that has the **OnSendAddinsEnabled** flag set to **true**.  Administrators can enable on send by running Exchange Online PowerShell cmdlets. To learn what cmdlets to run, see [Installing Outlook add-ins that use on send](https://docs.microsoft.com/en-us/outlook/add-ins/outlook-on-send-addins#installing-outlook-add-ins-that-use-on-send)
 
 ## Configuring and installing the sample
 
