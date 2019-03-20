@@ -1,3 +1,16 @@
+---
+topic: sample
+products:
+- Outlook
+- Office 365
+languages:
+- JavaScript
+extensions:
+  contentType: samples
+  technologies:
+  - Add-ins
+  createdDate: 3/20/2017 11:55:13 PM
+---
 # Outlook add-in on send code sample
 
 Learn how to check for restricted words in an Outlook email message body, add a recipient to the CC line and check that there is a subject in the email on send.
