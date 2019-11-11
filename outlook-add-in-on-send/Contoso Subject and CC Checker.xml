@@ -12,6 +12,9 @@
   <DefaultLocale>en-us</DefaultLocale>
   <DisplayName DefaultValue="Contoso Subject and CC Checker" />
   <Description DefaultValue="Contoso Subject and CC Checker" />
+  <IconUrl DefaultValue="https://localhost:3000/add-ins/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/add-ins/assets/icon-80.png"/>
+  <SupportUrl DefaultValue="https://localhost:3000/SupportUrl.html" />
 
   <Requirements>
     <Sets DefaultMinVersion="1.1">
