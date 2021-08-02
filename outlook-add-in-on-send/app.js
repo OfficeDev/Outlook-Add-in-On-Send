@@ -100,7 +100,9 @@
             // Block send.
             asyncResult.asyncContext.completed({ allowEvent: false });
         }
+        else {
 
-        // Allow send.
-        asyncResult.asyncContext.completed({ allowEvent: true });
+            // Allow send.
+            asyncResult.asyncContext.completed({ allowEvent: true });
+        }
     }
