@@ -18,7 +18,7 @@ Learn how to check for restricted words in an Outlook email message body, add a 
 >**Note:** 
 
 * The on send feature is currently supported for Outlook on the web in Office 365 only. 
-* To learn about the on send feature, see [On send feature for Outlook add-ins](https://dev.office.com/docs/add-ins/outlook/outlook-on-send-addins).  
+* To learn about the on send feature, see [On send feature for Outlook add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/outlook/outlook-on-send-addins).  
 * For a code walkthrough, see [Code examples](https://docs.microsoft.com/en-us/outlook/add-ins/outlook-on-send-addins#code-examples).
 
 ## Table of Contents
