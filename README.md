@@ -15,10 +15,17 @@ extensions:
 
 Learn how to check for restricted words in an Outlook email message body, add a recipient to the CC line and check that there is a subject in the email on send.
 
+## Supported clients and platforms
+| **Client**                                         | **Exchange Online** | **Exchange 2016 on-premises (Cumulative Update 6 or later)** | **Exchange 2019 on-premises (Cumulative Update 1 or later)** |
+|----------------------------------------------------|---------------------|--------------------------------------------------------------|--------------------------------------------------------------|
+| Windows: version 1910 (build 12130.20272) or later | Yes                 | Yes                                                          | Yes                                                          |
+| Mac: build 16.47 or later                          | Yes                 | Yes                                                          | Yes                                                          |
+| Web browser: modern Outlook UI                     | Yes                 | Not applicable                                               | Not applicable                                               |
+| Web browser: classic Outlook UI                    | Not applicable      | Yes                                                          | Yes                                                          |
+
 >**Note:** 
 
-* The on send feature is currently supported for Outlook on the web in Office 365 only. 
-* To learn about the on send feature, see [On send feature for Outlook add-ins](https://dev.office.com/docs/add-ins/outlook/outlook-on-send-addins).  
+* To learn about the on send feature, see [On send feature for Outlook add-ins](https://docs.microsoft.com/en-us/office/dev/add-ins/outlook/outlook-on-send-addins).  
 * For a code walkthrough, see [Code examples](https://docs.microsoft.com/en-us/outlook/add-ins/outlook-on-send-addins#code-examples).
 
 ## Table of Contents
